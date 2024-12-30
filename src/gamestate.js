@@ -134,17 +134,17 @@ export const phases = {
             },
             {
                 type: 'pro',
-                correctAnswers: ['cheap'],
+                correctAnswers: ['pro1'],
                 potentialAnswers: PRO_TYPES,
             },
             {
                 type: 'con',
-                correctAnswers: ['slow'],
+                correctAnswers: ['con1'],
                 potentialAnswers: CON_TYPES,
             },
             {
                 type: 'comptype',
-                correctAnswers: ['big'],
+                correctAnswers: ['comp2'],
                 potentialAnswers: COMP_TYPES,
             }
         ],
@@ -159,17 +159,17 @@ export const phases = {
             },
             {
                 type: 'pro',
-                correctAnswers: ['cheap'],
+                correctAnswers: ['pro1'],
                 potentialAnswers: PRO_TYPES,
             },
             {
                 type: 'con',
-                correctAnswers: ['slow'],
+                correctAnswers: ['con1'],
                 potentialAnswers: CON_TYPES,
             },
             {
                 type: 'comptype',
-                correctAnswers: ['big'],
+                correctAnswers: ['comp3'],
                 potentialAnswers: COMP_TYPES,
             }
         ],
@@ -179,22 +179,22 @@ export const phases = {
         elements: [
             {
                 type: 'transport',
-                correctAnswers: ['ship'],
+                correctAnswers: ['train'],
                 potentialAnswers: TRANSPORT_TYPES,
             },
             {
                 type: 'pro',
-                correctAnswers: ['cheap'],
+                correctAnswers: ['pro1'],
                 potentialAnswers: PRO_TYPES,
             },
             {
                 type: 'con',
-                correctAnswers: ['slow'],
+                correctAnswers: ['con1'],
                 potentialAnswers: CON_TYPES,
             },
             {
                 type: 'comptype',
-                correctAnswers: ['big'],
+                correctAnswers: ['comp1'],
                 potentialAnswers: COMP_TYPES,
             }
         ],
@@ -204,32 +204,58 @@ export const phases = {
         elements: [
             {
                 type: 'transport',
-                correctAnswers: ['ship'],
+                correctAnswers: ['truck'],
                 potentialAnswers: TRANSPORT_TYPES,
             },
             {
                 type: 'pro',
-                correctAnswers: ['cheap'],
+                correctAnswers: ['pro1'],
                 potentialAnswers: PRO_TYPES,
             },
             {
                 type: 'con',
-                correctAnswers: ['slow'],
+                correctAnswers: ['con1'],
                 potentialAnswers: CON_TYPES,
             },
             {
                 type: 'comptype',
-                correctAnswers: ['big'],
+                correctAnswers: ['comp2'],
                 potentialAnswers: COMP_TYPES,
             }
         ],
         title: 'Schuh boutique',
+    },
+    6: {
+        elements: [
+            {
+                type: 'transport',
+                correctAnswers: ['truck'],
+                potentialAnswers: TRANSPORT_TYPES,
+            },
+            {
+                type: 'pro',
+                correctAnswers: ['pro1'],
+                potentialAnswers: PRO_TYPES,
+            },
+            {
+                type: 'con',
+                correctAnswers: ['con1'],
+                potentialAnswers: CON_TYPES,
+            },
+            {
+                type: 'comptype',
+                correctAnswers: ['comp2'],
+                potentialAnswers: COMP_TYPES,
+            }
+        ],
+        title: 'Zuhause',
     }
 }
 
 
 export function initStateFromStage(stage) {
     return {
+        title: stage.title,
         transportTypeFound: false,
         stage: stage,
         transportNeeded: stage.elements[0].correctAnswers[0],

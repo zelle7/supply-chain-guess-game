@@ -20,10 +20,14 @@ import {
 import {EmptyCell} from "./components/EmptyCell";
 import {
     allCorrect,
-    checkCorrectness, COMP_TYPES_MAP, CON_TYPES_MAP,
+    checkCorrectness,
+    COMP_TYPES_MAP,
+    CON_TYPES_MAP,
     getFoundAnswers,
-    initStateFromStage, isTypeAllFound,
-    phases, PRO_TYPES_MAP,
+    initStateFromStage,
+    isTypeAllFound,
+    phases,
+    PRO_TYPES_MAP,
     TRANSPORT_TYPES_MAP
 } from "./gamestate";
 import {Summary} from "./components/Summary";
@@ -34,6 +38,7 @@ function App() {
     const [currentPhase, setCurrentPhase] = useState(1);
     const [gameFinished, setGameFinished] = useState(false);
     const [currentPhaseData, setCurrentPhaseData] = useState(initStateFromStage(phases[currentPhase]));
+    const [currentPhaseCompleted, setCurrentPhaseCompleted] = useState(false);
 
 
     function handleDragEnd(event) {
@@ -48,8 +53,7 @@ function App() {
                     setGameFinished(true);
                     return;
                 }
-                setCurrentPhase(currentPhase + 1);
-                setCurrentPhaseData(initStateFromStage(phases[currentPhase + 1]));
+                setCurrentPhaseCompleted(true);
             } else {
                 setCurrentPhaseData({...currentPhaseData});
             }
@@ -71,7 +75,7 @@ function App() {
         let foundAnswers = getFoundAnswers(currentPhaseData, curElement.type);
         for (const answer of curElement.potentialAnswers.filter((answer) => !foundAnswers.includes(answer.id))) {
             dragables[curElement.type].push(
-                <Draggable id={answer.id} key={"answ_"+answer.id} type={answer.type}>
+                <Draggable id={answer.id} key={"answ_" + answer.id} type={answer.type}>
                     <div>
                         <span className="button">{answer.name}</span>
                     </div>
@@ -85,7 +89,8 @@ function App() {
         let elementType = element.type;
         if (elementType === 'transport' && currentPhaseData.transportTypeFound) {
             return <>
-                <div className="cell"><strong>Transportmittel</strong> {TRANSPORT_TYPES_MAP[currentPhaseData.transportNeeded]}</div>
+                <div className="cell">
+                    <strong>Transportmittel</strong> {TRANSPORT_TYPES_MAP[currentPhaseData.transportNeeded]}</div>
                 <div className="cell" style={{color: "green"}}>Richtig beantwortet</div>
             </>;
         }
@@ -152,8 +157,27 @@ function App() {
 
     }
 
-    if(gameFinished) {
-        return <Summary />;
+    if (gameFinished) {
+        return <Summary/>;
+    }
+    let phasePartCompletedPart = ''
+    if (currentPhaseCompleted) {
+        phasePartCompletedPart = (
+            <>
+                <button className="button is-success is-pulled-right" onClick={() => {
+                    setCurrentPhase(currentPhase + 1);
+                    setCurrentPhaseData(initStateFromStage(phases[currentPhase + 1]));
+                    setCurrentPhaseCompleted(false);
+                }}>Weiter
+                </button>
+                <button className="button is-warning is-light is-pulled-right" onClick={() => {
+                    setCurrentPhase(currentPhase);
+                    setCurrentPhaseData(initStateFromStage(phases[currentPhase]));
+                    setCurrentPhaseCompleted(false);
+                }}>Zurücksetzen
+                </button>
+            </>
+        )
     }
 
     return (
@@ -175,6 +199,7 @@ function App() {
 
                                 </div>
                             </DndContext>
+                            {phasePartCompletedPart}
                         </div>
                         <div className="column">
                             <h1 className="title">Karte</h1>
