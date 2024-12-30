@@ -1,18 +1,16 @@
 
 import React from 'react';
 import {useDroppable} from '@dnd-kit/core';
+import {Droppable} from "./Droppable";
 
-export function Droppable(props) {
-    const {isOver, setNodeRef} = useDroppable({
-        id: props.id,
-    });
-    const style = {
-        opacity: isOver ? 1 : 0.5,
-    };
-
+export function AnswersDroppable(props) {
     return (
-        <div ref={setNodeRef} style={style}>
-            {props.children}
-        </div>
+        <section>
+            {props.answers.map((answer) => (
+                <Droppable id={answer.key} key={answer.key}>
+                    {answer.label}
+                </Droppable>
+            ))}
+        </section>
     );
 }
