@@ -4,159 +4,36 @@ import {Draggable} from './Draggable';
 import {Droppable} from './Droppable';
 import React, {useState} from "react";
 import {StageCell} from "./StageCell";
+import harbor from './svgfiles/harbor.png';
+import home from './svgfiles/home.jpeg';
+import shop from './svgfiles/shop.jpeg';
 
-const TRANSPORT_TYPES = [
-    {
-        id: 'truck',
-        name: 'LKW',
-        type: 'transport',
-    },
-    {
-        id: 'ship',
-        name: 'Schiff',
-        type: 'transport',
-    },
-    {
-        id: 'airplane',
-        name: 'Flugzeug',
-        type: 'transport',
-    },
-    {
-        id: 'train',
-        name: 'Zug',
-        type: 'transport',
-    },
-];
-
-const PRO_TYPES = [
-    {
-        id: 'cheap',
-        name: 'Billig',
-        type: 'pro',
-    },
-    {
-        id: 'fast',
-        name: 'Schnell',
-        type: 'pro',
-    },
-];
+import {
+    CurvedStreet,
+    FactoryItem,
+    IndustrialTrainStation,
+    Street,
+    TrainTracks,
+    VerticalStreet,
+    WaterWithWaves
+} from "./svgfiles/Svg";
+import {EmptyCell} from "./components/EmptyCell";
+import {
+    allCorrect,
+    checkCorrectness, COMP_TYPES_MAP, CON_TYPES_MAP,
+    getFoundAnswers,
+    initStateFromStage, isTypeAllFound,
+    phases, PRO_TYPES_MAP,
+    TRANSPORT_TYPES_MAP
+} from "./gamestate";
+import {Summary} from "./components/Summary";
 
 
-const phases = {
-    1: {
-        elements: [
-            {
-                type: 'transport',
-                label: 'Transportmittel',
-                correctAnswers: ['truck'],
-                potentialAnswers: TRANSPORT_TYPES,
-            },
-            {
-                type: 'pro',
-                label: 'Vorteile',
-                correctAnswers: ['fast'],
-                potentialAnswers: PRO_TYPES,
-            }
-        ],
-        title: 'Fabrik',
-    },
-    2: {
-        elements: [
-            {
-                type: 'transport',
-                label: 'Transportmittel',
-                correctAnswers: ['ship'],
-                potentialAnswers: TRANSPORT_TYPES,
-            },
-            {
-                type: 'pro',
-                label: 'Vorteile',
-                correctAnswers: ['cheap'],
-                potentialAnswers: PRO_TYPES,
-            }
-        ],
-        title: 'Hafen Asien',
-    },
-    3: {
-        elements: [
-            {
-                type: 'transport',
-                label: 'Transportmittel',
-                correctAnswers: ['ship'],
-                potentialAnswers: TRANSPORT_TYPES,
-            },
-            {
-                type: 'pro',
-                label: 'Vorteile',
-                correctAnswers: ['cheap'],
-                potentialAnswers: PRO_TYPES,
-            }
-        ],
-        title: 'Hafen Europa',
-    },
-    4: {
-        elements: [
-            {
-                type: 'transport',
-                label: 'Transportmittel',
-                correctAnswers: ['ship'],
-                potentialAnswers: TRANSPORT_TYPES,
-            },
-            {
-                type: 'pro',
-                label: 'Vorteile',
-                correctAnswers: ['cheap'],
-                potentialAnswers: PRO_TYPES,
-            }
-        ],
-        title: 'Bahnhof Wien',
-    },
-    5: {
-        elements: [
-            {
-                type: 'transport',
-                label: 'Transportmittel',
-                correctAnswers: ['ship'],
-                potentialAnswers: TRANSPORT_TYPES,
-            },
-            {
-                type: 'pro',
-                label: 'Vorteile',
-                correctAnswers: ['cheap'],
-                potentialAnswers: PRO_TYPES,
-            }
-        ],
-        title: 'Schuh boutique',
-    }
-}
-
-function trainTrack() {
-    return <svg width="200" height="100" xmlns="http://www.w3.org/2000/svg" >
-        <rect width="200" height="100" fill="#666464"/>
-        <rect y="20" width="200" height="10" fill="#444"/>
-        <rect y="70" width="200" height="10" fill="#444"/>
-        <rect x="45" width="10" height="100" fill="#444"/>
-        <rect x="145" width="10" height="100" fill="#444"/>
-    </svg>;
-}
-
-function curvedTrainTrack() {
-    return (
-        <svg width="200" height="200" xmlns="http://www.w3.org/2000/svg">
-            <rect width="200" height="200" fill="#666464" />
-
-            <path d="M 20 180 Q 100 100 180 20" stroke="#444" stroke-width="10" fill="none" />
-
-            <rect x="45" y="0" width="10" height="200" fill="#444" />
-            <rect x="145" y="0" width="10" height="200" fill="#444" />
-        </svg>
-    );
-}
-
+//color feedback, weiter button finish screen, reset stage
 function App() {
     const [currentPhase, setCurrentPhase] = useState(1);
-    const [currentPhaseData, setCurrentPhaseData] = useState(phases[1]);
-    const [typesAnswered, setTypesAnswered] = useState([]);
+    const [gameFinished, setGameFinished] = useState(false);
+    const [currentPhaseData, setCurrentPhaseData] = useState(initStateFromStage(phases[currentPhase]));
 
 
     function handleDragEnd(event) {
@@ -164,20 +41,22 @@ function App() {
         if (over === null) {
             return;
         }
-        if (active.data.current.type === over.id && over.data.current.correctAnswers.includes(active.data.current.value)) {
-            let newTypeAnswered = [...typesAnswered, active.data.current.type];
-            setTypesAnswered(newTypeAnswered);
-            if(newTypeAnswered.length === currentPhaseData.elements.length){
-                let newPhase = currentPhase + 1;
-                let phaseData = phases[newPhase];
-                setCurrentPhase(newPhase);
-                setCurrentPhaseData(phaseData);
-                setTypesAnswered([]);
+        let chosenValue = active.data.current.value;
+        if (checkCorrectness(currentPhaseData, over.id, chosenValue)) {
+            if (allCorrect(currentPhaseData)) {
+                if (currentPhase === Object.keys(phases).length) {
+                    setGameFinished(true);
+                    return;
+                }
+                setCurrentPhase(currentPhase + 1);
+                setCurrentPhaseData(initStateFromStage(phases[currentPhase + 1]));
+            } else {
+                setCurrentPhaseData({...currentPhaseData});
             }
         } else {
             console.log(
                 "Wrong",
-                active.data.current.type,
+                chosenValue,
                 over.id,
                 over.data.current.correctAnswers,
                 active.data.current.value
@@ -186,15 +65,15 @@ function App() {
 
     }
 
-
     let dragables = {};
-    for (const curElement of currentPhaseData.elements) {
+    for (const curElement of currentPhaseData.stage.elements) {
         dragables[curElement.type] = [];
-        for (const answer of curElement.potentialAnswers) {
+        let foundAnswers = getFoundAnswers(currentPhaseData, curElement.type);
+        for (const answer of curElement.potentialAnswers.filter((answer) => !foundAnswers.includes(answer.id))) {
             dragables[curElement.type].push(
-                <Draggable id={answer.id} key={answer.id} type={answer.type}>
+                <Draggable id={answer.id} key={"answ_"+answer.id} type={answer.type}>
                     <div>
-                        <button className="button is-large">{answer.name}</button>
+                        <span className="button">{answer.name}</span>
                     </div>
                 </Draggable>
             )
@@ -203,20 +82,61 @@ function App() {
     }
 
     function renderDropLine(element) {
-        if (typesAnswered.includes(element.type)) {
+        let elementType = element.type;
+        if (elementType === 'transport' && currentPhaseData.transportTypeFound) {
             return <>
-                <div className="cell">{element.label}</div>
+                <div className="cell"><strong>Transportmittel</strong> {TRANSPORT_TYPES_MAP[currentPhaseData.transportNeeded]}</div>
                 <div className="cell" style={{color: "green"}}>Richtig beantwortet</div>
             </>;
-
         }
+
+        let label = '';
+        let map = {};
+        switch (element.type) {
+            case 'transport':
+                label = 'Transportmittel';
+                break;
+            case 'pro':
+                label = '3 Vorteile';
+                map = PRO_TYPES_MAP;
+                break;
+            case 'con':
+                label = '3 Nachteile';
+                map = CON_TYPES_MAP
+                break;
+            case 'comptype':
+                label = 'Unternehmen';
+                map = COMP_TYPES_MAP
+                break;
+            default:
+                throw new Error('Unknown type');
+        }
+        if (elementType !== 'transport' && isTypeAllFound(currentPhaseData, elementType)) {
+            return <>
+                <div className="cell">
+                    <strong>{label}</strong>
+                    <ol style={{marginLeft: "15px"}}>
+                        {element.correctAnswers.map((answer) => (
+                            <li key={"correct_" + answer}>{map[answer]}</li>
+                        ))}
+                    </ol>
+                </div>
+                <div className="cell" style={{color: "green"}}>Richtig beantwortet</div>
+            </>;
+        }
+
+
         return <>
             <div className="cell">
 
                 <Droppable id={element.type} key={element.type} correctAnswers={element.correctAnswers}>
-                    {element.label}
+                    {label}
                 </Droppable>
-
+                <ol style={{marginLeft: "15px"}}>
+                    {getFoundAnswers(currentPhaseData, elementType).map((answer) => (
+                        <li key={"found_" + answer}>{map[answer]}</li>
+                    ))}
+                </ol>
             </div>
             <div className="cell">
                 {dragables[element.type]}
@@ -224,133 +144,94 @@ function App() {
         </>;
     }
 
+    function renderSolutions() {
+        if (currentPhaseData.transportTypeFound) {
+            return currentPhaseData.stage.elements.map((element) => renderDropLine(element));
+        }
+        return renderDropLine(currentPhaseData.stage.elements[0]);
+
+    }
+
+    if(gameFinished) {
+        return <Summary />;
+    }
+
     return (
         <>
-            <section className="section" style={{"width": "1200px"}}>
+            <section className="section">
                 <div className="container">
                     <h1 className="title">
                         Transportmittel in der Supply Chain
                     </h1>
-                    <DndContext onDragEnd={handleDragEnd}>
-                        <div className="fixed-grid has-2-cols">
-                            <h2 className="subtitle"><strong>Phase</strong> {currentPhaseData.title}</h2>
-                            <div className="grid">
-                                {currentPhaseData.elements.map((element) => renderDropLine(element))}
 
+                    <div className="columns">
+                        <div className="column">
+                            <h1 className="title"><strong>Phase</strong> {currentPhaseData.title}</h1>
+                            <DndContext onDragEnd={handleDragEnd}>
+                                <div className="fixed-grid has-2-cols">
+                                    <div className="grid">
+                                        {renderSolutions()}
+                                    </div>
 
-                            </div>
-
+                                </div>
+                            </DndContext>
                         </div>
-                    </DndContext>
-                    <h1 className="title">Karte</h1>
-                    <div className="fixed-grid has-6-cols game-grid">
-                        <div className="grid">
-                            <StageCell activeStage={currentPhase} stageNr={1} label="Shoe Factory Nike"/>
-                            <div className="cell street-background street-lines"></div>
-                            <div className="cell street-background">&nbsp;</div>
-                            <div className="cell">&nbsp;</div>
-                            <div className="cell">&nbsp;</div>
-                            <div className="cell">&nbsp;</div>
+                        <div className="column">
+                            <h1 className="title">Karte</h1>
+                            <div className="fixed-grid has-6-cols game-grid">
+                                <div className="grid is-gap-0">
+                                    <StageCell activeStage={currentPhase} stageNr={1} label="Shoe Factory Nike">
+                                        <FactoryItem/>
+                                    </StageCell>
+                                    <Street/>
+                                    <CurvedStreet/>
+                                    <EmptyCell times={3}/>
 
-                            <div className="cell">&nbsp;</div>
-                            <div className="cell">&nbsp;</div>
-                            <div className="cell street-lines-vertical">&nbsp;</div>
-                            <div className="cell">&nbsp;</div>
-                            <div className="cell">&nbsp;</div>
-                            <div className="cell">&nbsp;</div>
+                                    <EmptyCell times={2}/>
+                                    <VerticalStreet/>
+                                    <EmptyCell times={3}/>
 
-                            <div className="cell">&nbsp;</div>
-                            <div className="cell">&nbsp;</div>
-                            <div className="cell street-lines-vertical">&nbsp;</div>
-                            <div className="cell">&nbsp;</div>
-                            <div className="cell">&nbsp;</div>
-                            <div className="cell">&nbsp;</div>
+                                    <EmptyCell times={2}/>
+                                    <StageCell activeStage={currentPhase} stageNr={2} label="Hafen Asien">
+                                        <img src={harbor}/>
+                                    </StageCell>
+                                    <WaterWithWaves/>
+                                    <StageCell activeStage={currentPhase} stageNr={3} label="Hafen Europa">
+                                        <img src={harbor}/>
+                                    </StageCell>
+                                    <EmptyCell times={3}/>
 
-                            <div className="cell">&nbsp;</div>
-                            <div className="cell">&nbsp;</div>
-                            <StageCell activeStage={currentPhase} stageNr={2} label="Hafen Asien"/>
-                            <div className="cell">&nbsp;</div>
-                            <div className="cell">&nbsp;</div>
-                            <div className="cell">&nbsp;</div>
+                                    <EmptyCell times={2}/>
+                                    <div className="cell">
+                                        <TrainTracks/>
+                                    </div>
+                                    <EmptyCell times={1}/>
 
-                            <div className="cell">&nbsp;</div>
-                            <div className="cell">&nbsp;</div>
-                            <div className="cell water">&nbsp;</div>
-                            <div className="cell">&nbsp;</div>
-                            <div className="cell">&nbsp;</div>
-                            <div className="cell">&nbsp;</div>
+                                    <EmptyCell times={2}/>
+                                    <StageCell activeStage={currentPhase} stageNr={5} label="Schuhe boutique">
+                                        <img src={shop}/>
+                                    </StageCell>
+                                    <Street/>
+                                    <StageCell activeStage={currentPhase} stageNr={4} label="Bahnhof Wien">
+                                        <IndustrialTrainStation/>
+                                    </StageCell>
+                                    <EmptyCell times={1}/>
 
-                            <div className="cell">&nbsp;</div>
-                            <div className="cell">&nbsp;</div>
-                            <div className="cell water">&nbsp;</div>
-                            <div className="cell">&nbsp;</div>
-                            <div className="cell">&nbsp;</div>
-                            <div className="cell">&nbsp;</div>
+                                    <EmptyCell times={2}/>
+                                    <VerticalStreet/>
+                                    <EmptyCell times={3}/>
 
-                            <div className="cell">&nbsp;</div>
-                            <div className="cell">&nbsp;</div>
-                            <StageCell activeStage={currentPhase} stageNr={3} label="Hafen Europa"/>
-                            <div className="cell">&nbsp;</div>
-                            <div className="cell">&nbsp;</div>
-                            <div className="cell">&nbsp;</div>
 
-                            <div className="cell">&nbsp;</div>
-                            <div className="cell">&nbsp;</div>
-                            <div className="cell">
-                                {trainTrack()}
+                                    <EmptyCell times={2}/>
+                                    <StageCell activeStage={currentPhase} stageNr={6} label="Zuhause">
+                                        <img src={home}/>
+                                    </StageCell>
+                                </div>
                             </div>
-                            <div className="cell">&nbsp;</div>
-                            <div className="cell">&nbsp;</div>
-                            <div className="cell">&nbsp;</div>
-
-                            <div className="cell">&nbsp;</div>
-                            <div className="cell">&nbsp;</div>
-                            <div className="cell">
-                                {trainTrack()}
-                            </div>
-                            <div className="cell">&nbsp;</div>
-                            <div className="cell">&nbsp;</div>
-                            <div className="cell">&nbsp;</div>
-
-                            <div className="cell">&nbsp;</div>
-                            <div className="cell">&nbsp;</div>
-                            <div className="cell">
-                                {trainTrack()}
-                            </div>
-                            <div className="cell">&nbsp;</div>
-                            <div className="cell">&nbsp;</div>
-                            <div className="cell">&nbsp;</div>
-
-                            <div className="cell">1</div>
-                            <div className="cell">1</div>
-                            <StageCell activeStage={currentPhase} stageNr={4} label="Bahnhof Wien"/>
-                            <div className="cell">1</div>
-                            <div className="cell">1</div>
-                            <div className="cell">1</div>
-
-                            <div className="cell">&nbsp;</div>
-                            <div className="cell">&nbsp;</div>
-                            <div className="cell street-lines-vertical">&nbsp;</div>
-                            <div className="cell">&nbsp;</div>
-                            <div className="cell">&nbsp;</div>
-                            <div className="cell">&nbsp;</div>
-
-                            <div className="cell">&nbsp;</div>
-                            <div className="cell">&nbsp;</div>
-                            <div className="cell street-lines-vertical">&nbsp;</div>
-                            <div className="cell">&nbsp;</div>
-                            <div className="cell">&nbsp;</div>
-                            <div className="cell">&nbsp;</div>
-
-                            <div className="cell">1</div>
-                            <div className="cell">1</div>
-                            <StageCell activeStage={currentPhase} stageNr={5} label="Schuhe boutique"/>
-                            <div className="cell">1</div>
-                            <div className="cell">1</div>
-                            <div className="cell">1</div>
-
                         </div>
+
                     </div>
+
                 </div>
             </section>
             <footer className="footer">

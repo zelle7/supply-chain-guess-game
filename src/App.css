@@ -38,9 +38,9 @@
 }
 
 
+
 .game-grid .grid {
   margin: 0;
-  --bulma-grid-gap: 0rem;
   border: 1px solid black;
 }
 .game-grid .grid .cell{
@@ -49,194 +49,21 @@
 
 .active-stage {
   background-color: #f0f0f0;
-  border: 1px solid darkgreen;
+  border: 3px solid #eecb02;
   text-align: center;
   padding: 10px;
 }
 
 .inactive-stage {
   background-color: #f0f0f0;
-  border: 1px solid darkred;
+  border: 3px solid darkred;
   text-align: center;
   padding: 10px;
 }
 
 .done-stage {
   background-color: #f0f0f0;
-  border: 1px solid darkblue;
+  border: 3px solid darkblue;
   text-align: center;
   padding: 10px;
-}
-
-.street-background {
-  color: white;
-  background-color: #666464;
-}
-
-.street-lines {
-  position: relative;
-  background-color: #666464;
-  height: 100px;
-  width: 100%;
-}
-
-.street-lines::before {
-  content: '';
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  width: 80%;
-  height: 10px;
-  background-color: white;
-  transform: translate(-50%, -50%);
-}
-
-.street-lines-vertical {
-  position: relative;
-  background-color: #666464;
-  height: 100%;
-  width: 50%;
-  margin-left: 25%;
-}
-
-.street-lines-vertical::before {
-  content: '';
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  width: 10px;
-  height: 80%;
-  background-color: white;
-  transform: translate(-50%, -50%);
-}
-
-
-.street-lines-corner {
-  position: relative;
-  background-color: #666464;
-  height: 100px;
-  width: 100px;
-}
-
-.street-lines-corner::before,
-.street-lines-corner::after {
-  content: '';
-  position: absolute;
-  background-color: white;
-}
-
-.street-lines-corner::before {
-  top: 50%;
-  left: 0;
-  width: 50%;
-  height: 10px;
-  transform: translateY(-50%);
-}
-
-.street-lines-corner::after {
-  top: 0;
-  left: 50%;
-  width: 10px;
-  height: 50%;
-  transform: translate(-50%, -50%) rotate(90deg);
-}
-
-.factory-icon {
-  position: relative;
-  width: 100px;
-  height: 100px;
-  background-color: #ffffff;
-}
-
-.factory-icon::before,
-.factory-icon::after {
-  content: '';
-  position: absolute;
-  background-color: #fff;
-}
-
-.factory-icon::before {
-  top: 0;
-  left: 10px;
-  width: 80%;
-  height: 50%;
-  background-color: #888;
-  clip-path: polygon(0% 100%, 10% 80%, 20% 100%, 30% 80%, 40% 100%, 50% 80%, 60% 100%, 70% 80%, 80% 100%, 90% 80%, 100% 100%);
-}
-
-.factory-icon::after {
-  bottom: 0;
-  left: 10%;
-  width: 80%;
-  height: 50%;
-  background-color: #444;
-}
-
-
-.water {
-  position: relative;
-  background: rgba(0, 0, 255, 0.65);
-  overflow: hidden;
-}
-
-.water::before,
-.water::after {
-  content: '';
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  width: 200%;
-  height: 200%;
-  background: rgba(255, 255, 255, 0.1);
-  border-radius: 45%;
-  animation: wave 5s infinite linear;
-}
-
-.water::after {
-  animation-delay: -2.5s;
-}
-
-@keyframes wave {
-  0% {
-    transform: translate(-50%, -50%) rotate(0deg);
-  }
-  100% {
-    transform: translate(-50%, -50%) rotate(360deg);
-  }
-}
-
-
-train-track {
-  position: relative;
-  width: 100px;
-  height: 100px;
-  background-color: #666464;
-  overflow: hidden;
-}
-
-.train-track::before,
-.train-track::after {
-  content: '';
-  position: absolute;
-  width: 100%;
-  height: 10px;
-  background-color: #444;
-}
-
-.train-track::before {
-  top: 20%;
-}
-
-.train-track::after {
-  top: 70%;
-}
-
-.train-track .rail {
-  position: absolute;
-  top: 0;
-  left: 50%;
-  width: 10px;
-  height: 100%;
-  background-color: #444;
-  transform: translateX(-50%);
 }

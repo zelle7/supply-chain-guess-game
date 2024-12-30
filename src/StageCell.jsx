@@ -1,6 +1,6 @@
 import React from 'react';
 
-export function StageCell({label, activeStage, stageNr}) {
+export function StageCell({label, activeStage, stageNr, children}) {
     let className = 'cell';
     if (stageNr === activeStage) {
         className += ' active-stage';
@@ -11,7 +11,7 @@ export function StageCell({label, activeStage, stageNr}) {
     }
     return (
         <div className={className}>
-            {label}
+            {children}
         </div>
     );
 }
