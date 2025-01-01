@@ -266,8 +266,16 @@ function App() {
             <footer className="footer">
                 <div className="content has-text-centered">
                     <p>
-                        Icons used by <a href="https://www.flaticon.com/free-icons/factory" title="factory icons">Factory
-                        icons created by Freepik - Flaticon</a>
+                        Icons:
+                        <ul style={{listStyleType: "none"}}>
+                            <li><a href="https://www.flaticon.com/free-icons/train-station" title="train station icons">Train
+                                station icons created by PIXARTIST - Flaticon</a></li>
+                            <li><a href="https://www.flaticon.com/free-icons/airport" title="airport icons">Airport icons</a></li>
+                            <li><a href="https://www.freepik.com/free-vector/airport-tower-concept-illustration_27638152.htm/" title="Freepik">Airport tower</a></li>
+                            <li><a href="https://www.freepik.com/premium-vector/beautiful-unique-logo-design-ecommerce-retail-company_275995371.htm#fromView=keyword&page=1&position=8&uuid=49019d76-2d29-4469-b464-118a7056b0f0" title="Freepik">Company Icon</a></li>
+                            <li><a href="https://www.freepik.com/premium-vector/https://de.freepik.com/icon/haus_5849126#fromView=keyword&page=1&position=74&uuid=989440b8-a3db-4113-81f8-5b133532ad96" title="Freepik">House Icon</a></li>
+                        </ul>
+
                     </p>
                 </div>
             </footer>
