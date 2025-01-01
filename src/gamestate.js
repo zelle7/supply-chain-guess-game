@@ -104,7 +104,7 @@ export const phases = {
         elements: [
             {
                 type: 'transport',
-                correctAnswers: ['truck'],
+                correctAnswers: ['ship1'],
                 potentialAnswers: TRANSPORT_TYPES,
             },
             {
@@ -114,57 +114,7 @@ export const phases = {
             },
             {
                 type: 'con',
-                correctAnswers: ['con1', 'con5', 'con2'],
-                potentialAnswers: CON_TYPES,
-            },
-            {
-                type: 'comptype',
-                correctAnswers: ['comp1'],
-                potentialAnswers: COMP_TYPES,
-            }
-        ],
-        title: 'Fabrik',
-    },
-    2: {
-        elements: [
-            {
-                type: 'transport',
-                correctAnswers: ['ship1'],
-                potentialAnswers: TRANSPORT_TYPES,
-            },
-            {
-                type: 'pro',
-                correctAnswers: ['pro1'],
-                potentialAnswers: PRO_TYPES,
-            },
-            {
-                type: 'con',
-                correctAnswers: ['con1'],
-                potentialAnswers: CON_TYPES,
-            },
-            {
-                type: 'comptype',
-                correctAnswers: ['comp2'],
-                potentialAnswers: COMP_TYPES,
-            }
-        ],
-        title: 'Hafen Asien',
-    },
-    3: {
-        elements: [
-            {
-                type: 'transport',
-                correctAnswers: ['ship2'],
-                potentialAnswers: TRANSPORT_TYPES,
-            },
-            {
-                type: 'pro',
-                correctAnswers: ['pro1'],
-                potentialAnswers: PRO_TYPES,
-            },
-            {
-                type: 'con',
-                correctAnswers: ['con1'],
+                correctAnswers: ['con7', 'con5', 'con8'],
                 potentialAnswers: CON_TYPES,
             },
             {
@@ -173,7 +123,57 @@ export const phases = {
                 potentialAnswers: COMP_TYPES,
             }
         ],
-        title: 'Hafen Europa',
+        title: 'Fabrik -> Hafen Asien',
+    },
+    2: {
+        elements: [
+            {
+                type: 'transport',
+                correctAnswers: ['ship2'],
+                potentialAnswers: TRANSPORT_TYPES,
+            },
+            {
+                type: 'pro',
+                correctAnswers: ['pro1', 'pro8', 'pro9'],
+                potentialAnswers: PRO_TYPES,
+            },
+            {
+                type: 'con',
+                correctAnswers: ['con7', 'con5', 'con9'],
+                potentialAnswers: CON_TYPES,
+            },
+            {
+                type: 'comptype',
+                correctAnswers: ['comp4'],
+                potentialAnswers: COMP_TYPES,
+            }
+        ],
+        title: 'Hafen Asien -> Hafen Europa',
+    },
+    3: {
+        elements: [
+            {
+                type: 'transport',
+                correctAnswers: ['airplane'],
+                potentialAnswers: TRANSPORT_TYPES,
+            },
+            {
+                type: 'pro',
+                correctAnswers: ['pro10', 'pro11', 'pro12'],
+                potentialAnswers: PRO_TYPES,
+            },
+            {
+                type: 'con',
+                correctAnswers: ['con10', 'con11', 'con12'],
+                potentialAnswers: CON_TYPES,
+            },
+            {
+                type: 'comptype',
+                correctAnswers: ['comp5'],
+                potentialAnswers: COMP_TYPES,
+            }
+        ],
+        title: 'Hafen Europa -> Flughafen Wien',
     },
     4: {
         elements: [
@@ -184,21 +184,21 @@ export const phases = {
             },
             {
                 type: 'pro',
-                correctAnswers: ['pro1'],
+                correctAnswers: ['pro4', 'pro5', 'pro6'],
                 potentialAnswers: PRO_TYPES,
             },
             {
                 type: 'con',
-                correctAnswers: ['con1'],
+                correctAnswers: ['con4', 'con5', 'con6'],
                 potentialAnswers: CON_TYPES,
             },
             {
                 type: 'comptype',
-                correctAnswers: ['comp1'],
+                correctAnswers: ['comp2'],
                 potentialAnswers: COMP_TYPES,
             }
         ],
-        title: 'Bahnhof Wien',
+        title: 'Flughafen Wien -> Bahnhof Wien',
     },
     5: {
         elements: [
@@ -209,21 +209,21 @@ export const phases = {
             },
             {
                 type: 'pro',
-                correctAnswers: ['pro1'],
+                correctAnswers: ['pro1', 'pro2', 'pro3'],
                 potentialAnswers: PRO_TYPES,
             },
             {
                 type: 'con',
-                correctAnswers: ['con1'],
+                correctAnswers: ['con1', 'con2', 'con3'],
                 potentialAnswers: CON_TYPES,
             },
             {
                 type: 'comptype',
-                correctAnswers: ['comp2'],
+                correctAnswers: ['comp1'],
                 potentialAnswers: COMP_TYPES,
             }
         ],
-        title: 'Schuh boutique',
+        title: 'Bahnhof Wien -> Geschäft',
     },
     6: {
         elements: [
@@ -234,22 +234,22 @@ export const phases = {
             },
             {
                 type: 'pro',
-                correctAnswers: ['pro1'],
+                correctAnswers: ['pro1', 'pro2', 'pro3'],
                 potentialAnswers: PRO_TYPES,
             },
             {
                 type: 'con',
-                correctAnswers: ['con1'],
+                correctAnswers: ['con1', 'con2', 'con3'],
                 potentialAnswers: CON_TYPES,
             },
             {
                 type: 'comptype',
-                correctAnswers: ['comp2'],
+                correctAnswers: ['comp1'],
                 potentialAnswers: COMP_TYPES,
             }
         ],
-        title: 'Zuhause',
-    }
+        title: 'Geschäft -> Zuhause',
+    },
 }
 
 

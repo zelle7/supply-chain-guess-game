@@ -7,11 +7,14 @@ import {StageCell} from "./StageCell";
 import harbor from './svgfiles/harbor.png';
 import home from './svgfiles/home.jpeg';
 import shop from './svgfiles/shop.jpeg';
+import airport from './svgfiles/airport.jpg';
+import trainstation from './svgfiles/trainstation.jpeg';
 
 import {
+    Clouds,
     CurvedStreet,
     FactoryItem,
-    IndustrialTrainStation,
+    IndustrialTrainStation, River,
     Street,
     TrainTracks,
     VerticalStreet,
@@ -208,46 +211,47 @@ function App() {
                                     <StageCell activeStage={currentPhase} stageNr={1} label="Shoe Factory Nike">
                                         <FactoryItem/>
                                     </StageCell>
-                                    <Street/>
-                                    <CurvedStreet/>
-                                    <EmptyCell times={3}/>
-
-                                    <EmptyCell times={2}/>
-                                    <VerticalStreet/>
-                                    <EmptyCell times={3}/>
-
-                                    <EmptyCell times={2}/>
+                                    <River />
                                     <StageCell activeStage={currentPhase} stageNr={2} label="Hafen Asien">
                                         <img src={harbor}/>
                                     </StageCell>
-                                    <WaterWithWaves/>
-                                    <StageCell activeStage={currentPhase} stageNr={3} label="Hafen Europa">
-                                        <img src={harbor}/>
-                                    </StageCell>
                                     <EmptyCell times={3}/>
 
                                     <EmptyCell times={2}/>
-                                    <div className="cell">
-                                        <TrainTracks/>
-                                    </div>
+                                    <WaterWithWaves/>
+                                    <EmptyCell times={3}/>
+
+                                    <EmptyCell times={2}/>
+
+                                    <StageCell activeStage={currentPhase} stageNr={3} label="Hafen Europa">
+                                        <img src={harbor}/>
+                                    </StageCell>
+                                    <Clouds />
+                                    <StageCell activeStage={currentPhase} stageNr={4} label="Flughafen Wien">
+                                        <img src={airport}/>
+                                    </StageCell>
+                                    <EmptyCell times={1}/>
+
+
+                                    <EmptyCell times={4}/>
+                                    <TrainTracks />
                                     <EmptyCell times={1}/>
 
                                     <EmptyCell times={2}/>
-                                    <StageCell activeStage={currentPhase} stageNr={5} label="Schuhe boutique">
+                                    <StageCell activeStage={currentPhase} stageNr={6} label="Geschäft">
                                         <img src={shop}/>
                                     </StageCell>
-                                    <Street/>
-                                    <StageCell activeStage={currentPhase} stageNr={4} label="Bahnhof Wien">
-                                        <IndustrialTrainStation/>
+                                    <Street />
+                                    <StageCell activeStage={currentPhase} stageNr={5} label="Bahnhof Wien">
+                                        <img src={trainstation}/>
                                     </StageCell>
                                     <EmptyCell times={1}/>
 
                                     <EmptyCell times={2}/>
                                     <VerticalStreet/>
-                                    <EmptyCell times={3}/>
-
-
                                     <EmptyCell times={2}/>
+
+                                    <EmptyCell times={3}/>
                                     <StageCell activeStage={currentPhase} stageNr={6} label="Zuhause">
                                         <img src={home}/>
                                     </StageCell>
