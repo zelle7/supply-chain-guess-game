@@ -81,7 +81,7 @@ export const COMP_TYPES = [
     },
     {
         id: 'comp3',
-        name: 'Gebr. Väuth GmbH & Co. KG',
+        name: 'Gebr. Väth GmbH & Co. KG',
         type: 'comptype',
     },
     {

@@ -286,6 +286,7 @@ function App() {
             </section>
             <footer className="footer">
                 <div className="content has-text-centered">
+                    <p>Build by Christian Zellot - <a href="https://github.com/zelle7/supply-chain-guess-game">Github</a> </p>
                     <p>
                         Icons:
                         <ul style={{listStyleType: "none"}}>
