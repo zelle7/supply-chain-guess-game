@@ -11,7 +11,7 @@ import {
 export function Summary() {
     let allStages = Object.values(phases).map((phase) => {
         return initStateFromStage(phase);
-    });
+    }).slice(0, -1);
     return (
         <section className="section">
             <div className="container">
