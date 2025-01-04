@@ -1,5 +1,5 @@
 import './App.css';
-import {DndContext} from '@dnd-kit/core';
+import {DndContext, MouseSensor, TouchSensor, useSensor, useSensors} from '@dnd-kit/core';
 import {Draggable} from './Draggable';
 import {Droppable} from './Droppable';
 import React, {useState} from "react";
@@ -9,6 +9,7 @@ import home from './svgfiles/home.jpeg';
 import shop from './svgfiles/shop.jpeg';
 import airport from './svgfiles/airport.jpg';
 import trainstation from './svgfiles/trainstation.jpeg';
+
 
 import {
     Clouds,
@@ -42,6 +43,24 @@ function App() {
     const [gameFinished, setGameFinished] = useState(false);
     const [currentPhaseData, setCurrentPhaseData] = useState(initStateFromStage(phases[currentPhase]));
     const [currentPhaseCompleted, setCurrentPhaseCompleted] = useState(false);
+
+    const mouseSensor = useSensor(MouseSensor, {
+        // Require the mouse to move by 10 pixels before activating
+        activationConstraint: {
+            distance: 10,
+        },
+    });
+    const touchSensor = useSensor(TouchSensor, {
+        // Press delay of 250ms, with tolerance of 5px of movement
+        activationConstraint: {
+            delay: 250,
+            tolerance: 5,
+        },
+    });
+    const sensors = useSensors(
+        mouseSensor,
+        touchSensor,
+    );
 
 
     function handleDragEnd(event) {
@@ -79,7 +98,9 @@ function App() {
         for (const answer of curElement.potentialAnswers.filter((answer) => !foundAnswers.includes(answer.id))) {
             dragables[curElement.type].push(
                 <Draggable id={answer.id} key={"answ_" + answer.id} type={answer.type}>
-                    <div>
+                    <div onClick={(e) => {
+                        console.log(e)
+                    }}>
                         <span className="button">{answer.name}</span>
                     </div>
                 </Draggable>
@@ -194,7 +215,7 @@ function App() {
                     <div className="columns">
                         <div className="column">
                             <h1 className="title"><strong>Phase</strong> {currentPhaseData.title}</h1>
-                            <DndContext onDragEnd={handleDragEnd}>
+                            <DndContext onDragEnd={handleDragEnd} sensors={sensors}>
                                 <div className="fixed-grid has-2-cols">
                                     <div className="grid">
                                         {renderSolutions()}
@@ -211,7 +232,7 @@ function App() {
                                     <StageCell activeStage={currentPhase} stageNr={1} label="Shoe Factory Nike">
                                         <FactoryItem/>
                                     </StageCell>
-                                    <River />
+                                    <River/>
                                     <StageCell activeStage={currentPhase} stageNr={2} label="Hafen Asien">
                                         <img src={harbor}/>
                                     </StageCell>
@@ -226,7 +247,7 @@ function App() {
                                     <StageCell activeStage={currentPhase} stageNr={3} label="Hafen Europa">
                                         <img src={harbor}/>
                                     </StageCell>
-                                    <Clouds />
+                                    <Clouds/>
                                     <StageCell activeStage={currentPhase} stageNr={4} label="Flughafen Wien">
                                         <img src={airport}/>
                                     </StageCell>
@@ -234,14 +255,14 @@ function App() {
 
 
                                     <EmptyCell times={4}/>
-                                    <TrainTracks />
+                                    <TrainTracks/>
                                     <EmptyCell times={1}/>
 
                                     <EmptyCell times={2}/>
                                     <StageCell activeStage={currentPhase} stageNr={6} label="Geschäft">
                                         <img src={shop}/>
                                     </StageCell>
-                                    <Street />
+                                    <Street/>
                                     <StageCell activeStage={currentPhase} stageNr={5} label="Bahnhof Wien">
                                         <img src={trainstation}/>
                                     </StageCell>
@@ -270,10 +291,17 @@ function App() {
                         <ul style={{listStyleType: "none"}}>
                             <li><a href="https://www.flaticon.com/free-icons/train-station" title="train station icons">Train
                                 station icons created by PIXARTIST - Flaticon</a></li>
-                            <li><a href="https://www.flaticon.com/free-icons/airport" title="airport icons">Airport icons</a></li>
-                            <li><a href="https://www.freepik.com/free-vector/airport-tower-concept-illustration_27638152.htm/" title="Freepik">Airport tower</a></li>
-                            <li><a href="https://www.freepik.com/premium-vector/beautiful-unique-logo-design-ecommerce-retail-company_275995371.htm#fromView=keyword&page=1&position=8&uuid=49019d76-2d29-4469-b464-118a7056b0f0" title="Freepik">Company Icon</a></li>
-                            <li><a href="https://www.freepik.com/premium-vector/https://de.freepik.com/icon/haus_5849126#fromView=keyword&page=1&position=74&uuid=989440b8-a3db-4113-81f8-5b133532ad96" title="Freepik">House Icon</a></li>
+                            <li><a href="https://www.flaticon.com/free-icons/airport" title="airport icons">Airport
+                                icons</a></li>
+                            <li><a
+                                href="https://www.freepik.com/free-vector/airport-tower-concept-illustration_27638152.htm/"
+                                title="Freepik">Airport tower</a></li>
+                            <li><a
+                                href="https://www.freepik.com/premium-vector/beautiful-unique-logo-design-ecommerce-retail-company_275995371.htm#fromView=keyword&page=1&position=8&uuid=49019d76-2d29-4469-b464-118a7056b0f0"
+                                title="Freepik">Company Icon</a></li>
+                            <li><a
+                                href="https://www.freepik.com/premium-vector/https://de.freepik.com/icon/haus_5849126#fromView=keyword&page=1&position=74&uuid=989440b8-a3db-4113-81f8-5b133532ad96"
+                                title="Freepik">House Icon</a></li>
                         </ul>
 
                     </p>

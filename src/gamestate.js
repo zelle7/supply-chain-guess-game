@@ -1,4 +1,3 @@
-
 export function mapConstantsToMap(constantArray) {
     return constantArray.reduce((acc, cur) => {
         acc[cur.id] = cur.name;
