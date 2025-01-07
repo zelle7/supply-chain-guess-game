@@ -1,3 +1,5 @@
+import {shuffle} from "./utils";
+
 export function mapConstantsToMap(constantArray) {
     return constantArray.reduce((acc, cur) => {
         acc[cur.id] = cur.name;
@@ -109,17 +111,17 @@ export const phases = {
             {
                 type: 'pro',
                 correctAnswers: ['pro1', 'pro4', 'pro7'],
-                potentialAnswers: PRO_TYPES,
+                potentialAnswers: shuffle(PRO_TYPES),
             },
             {
                 type: 'con',
                 correctAnswers: ['con7', 'con5', 'con8'],
-                potentialAnswers: CON_TYPES,
+                potentialAnswers: shuffle(CON_TYPES),
             },
             {
                 type: 'comptype',
                 correctAnswers: ['comp3'],
-                potentialAnswers: COMP_TYPES,
+                potentialAnswers: shuffle(COMP_TYPES),
             }
         ],
         title: 'Fabrik -> Hafen Asien',
@@ -134,17 +136,17 @@ export const phases = {
             {
                 type: 'pro',
                 correctAnswers: ['pro1', 'pro8', 'pro9'],
-                potentialAnswers: PRO_TYPES,
+                potentialAnswers: shuffle(PRO_TYPES),
             },
             {
                 type: 'con',
                 correctAnswers: ['con7', 'con5', 'con9'],
-                potentialAnswers: CON_TYPES,
+                potentialAnswers: shuffle(CON_TYPES),
             },
             {
                 type: 'comptype',
                 correctAnswers: ['comp4'],
-                potentialAnswers: COMP_TYPES,
+                potentialAnswers: shuffle(COMP_TYPES),
             }
         ],
         title: 'Hafen Asien -> Hafen Europa',
@@ -159,17 +161,17 @@ export const phases = {
             {
                 type: 'pro',
                 correctAnswers: ['pro10', 'pro11', 'pro12'],
-                potentialAnswers: PRO_TYPES,
+                potentialAnswers: shuffle(PRO_TYPES),
             },
             {
                 type: 'con',
                 correctAnswers: ['con10', 'con11', 'con12'],
-                potentialAnswers: CON_TYPES,
+                potentialAnswers: shuffle(CON_TYPES),
             },
             {
                 type: 'comptype',
                 correctAnswers: ['comp5'],
-                potentialAnswers: COMP_TYPES,
+                potentialAnswers: shuffle(COMP_TYPES),
             }
         ],
         title: 'Hafen Europa -> Flughafen Wien',
@@ -184,17 +186,17 @@ export const phases = {
             {
                 type: 'pro',
                 correctAnswers: ['pro4', 'pro5', 'pro6'],
-                potentialAnswers: PRO_TYPES,
+                potentialAnswers: shuffle(PRO_TYPES),
             },
             {
                 type: 'con',
                 correctAnswers: ['con4', 'con5', 'con6'],
-                potentialAnswers: CON_TYPES,
+                potentialAnswers: shuffle(CON_TYPES),
             },
             {
                 type: 'comptype',
                 correctAnswers: ['comp2'],
-                potentialAnswers: COMP_TYPES,
+                potentialAnswers: shuffle(COMP_TYPES),
             }
         ],
         title: 'Flughafen Wien -> Bahnhof Wien',
@@ -209,17 +211,17 @@ export const phases = {
             {
                 type: 'pro',
                 correctAnswers: ['pro1', 'pro2', 'pro3'],
-                potentialAnswers: PRO_TYPES,
+                potentialAnswers: shuffle(PRO_TYPES),
             },
             {
                 type: 'con',
                 correctAnswers: ['con1', 'con2', 'con3'],
-                potentialAnswers: CON_TYPES,
+                potentialAnswers: shuffle(CON_TYPES),
             },
             {
                 type: 'comptype',
                 correctAnswers: ['comp1'],
-                potentialAnswers: COMP_TYPES,
+                potentialAnswers: shuffle(COMP_TYPES),
             }
         ],
         title: 'Bahnhof Wien -> Geschäft',
@@ -234,17 +236,17 @@ export const phases = {
             {
                 type: 'pro',
                 correctAnswers: ['pro1', 'pro2', 'pro3'],
-                potentialAnswers: PRO_TYPES,
+                potentialAnswers: shuffle(PRO_TYPES),
             },
             {
                 type: 'con',
                 correctAnswers: ['con1', 'con2', 'con3'],
-                potentialAnswers: CON_TYPES,
+                potentialAnswers: shuffle(CON_TYPES),
             },
             {
                 type: 'comptype',
                 correctAnswers: ['comp1'],
-                potentialAnswers: COMP_TYPES,
+                potentialAnswers: shuffle(COMP_TYPES),
             }
         ],
         title: 'Geschäft -> Zuhause',
