@@ -124,7 +124,7 @@ export const phases = {
                 potentialAnswers: shuffle(COMP_TYPES),
             }
         ],
-        title: 'Fabrik -> Hafen Asien',
+        title: 'Mit welchem Transportmittel werden die Waren von der Fabrik zum Hafen lt. Grafik transportiert?',
     },
     2: {
         elements: [
@@ -149,7 +149,7 @@ export const phases = {
                 potentialAnswers: shuffle(COMP_TYPES),
             }
         ],
-        title: 'Hafen Asien -> Hafen Europa',
+        title: 'Mit welchem Transportmittel werden die Waren vom Hafen in Asien zum Hafen in Europa lt. Grafik transportiert?',
     },
     3: {
         elements: [
@@ -174,7 +174,7 @@ export const phases = {
                 potentialAnswers: shuffle(COMP_TYPES),
             }
         ],
-        title: 'Hafen Europa -> Flughafen Wien',
+        title: 'Mit welchem Transportmittel werden die Waren vom Hafen zum Flughafen lt. Grafik transportiert?',
     },
     4: {
         elements: [
@@ -199,7 +199,7 @@ export const phases = {
                 potentialAnswers: shuffle(COMP_TYPES),
             }
         ],
-        title: 'Flughafen Wien -> Bahnhof Wien',
+        title: 'Mit welchem Transportmittel werden die Waren vom Flughafen Wien zum Bahnhof Wien lt. Grafik transportiert?',
     },
     5: {
         elements: [
@@ -224,7 +224,7 @@ export const phases = {
                 potentialAnswers: shuffle(COMP_TYPES),
             }
         ],
-        title: 'Bahnhof Wien -> Geschäft',
+        title: 'Mit welchem Transportmittel werden die Waren vom Bahnhof zum Geschäft lt. Grafik transportiert?',
     },
 }
 

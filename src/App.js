@@ -214,8 +214,7 @@ function App() {
 
                     <div className="columns">
                         <div className="column">
-                            <h2>Mit welchem Transportmittel werden die Waren von .. zum .. lt. Grafik transportiert?</h2>
-                            <h2 className="subtitle"><strong>Phase</strong> {currentPhaseData.title}</h2>
+                            <h2 className="subtitle"> {currentPhaseData.title}</h2>
                             <DndContext onDragEnd={handleDragEnd} sensors={sensors}>
                                 <div className="fixed-grid has-2-cols">
                                     <div className="grid">
