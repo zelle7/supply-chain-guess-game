@@ -49,21 +49,21 @@
 
 .active-stage {
     background-color: #f0f0f0;
-    border: 3px solid #eecb02;
+    border: 8px solid darkred;
     text-align: center;
     padding: 10px;
 }
 
 .inactive-stage {
     background-color: #f0f0f0;
-    border: 3px solid darkred;
+    border: 2px solid grey;
     text-align: center;
     padding: 10px;
 }
 
-.done-stage {
+.completed-stage {
     background-color: #f0f0f0;
-    border: 3px solid darkblue;
+    border: 4px solid darkblue;
     text-align: center;
     padding: 10px;
 }

@@ -2,7 +2,7 @@ import React from 'react';
 
 export function StageCell({label, activeStage, stageNr, children}) {
     let className = 'cell';
-    if (stageNr === activeStage) {
+    if (stageNr === activeStage || stageNr === (activeStage + 1)) {
         className += ' active-stage';
     } else if (stageNr < activeStage) {
         className += ' completed-stage';

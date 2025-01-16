@@ -110,7 +110,7 @@ export const phases = {
             },
             {
                 type: 'pro',
-                correctAnswers: ['pro1', 'pro4', 'pro7'],
+                correctAnswers: ['pro1', 'pro4', 'pro7', 'pro6'],
                 potentialAnswers: shuffle(PRO_TYPES),
             },
             {
@@ -135,7 +135,7 @@ export const phases = {
             },
             {
                 type: 'pro',
-                correctAnswers: ['pro1', 'pro8', 'pro9'],
+                correctAnswers: ['pro1', 'pro8', 'pro9', 'pro6'],
                 potentialAnswers: shuffle(PRO_TYPES),
             },
             {
@@ -160,7 +160,7 @@ export const phases = {
             },
             {
                 type: 'pro',
-                correctAnswers: ['pro10', 'pro11', 'pro12'],
+                correctAnswers: ['pro10', 'pro11', 'pro12', 'pro6'],
                 potentialAnswers: shuffle(PRO_TYPES),
             },
             {
@@ -185,12 +185,12 @@ export const phases = {
             },
             {
                 type: 'pro',
-                correctAnswers: ['pro4', 'pro5', 'pro6'],
+                correctAnswers: ['pro4', 'pro5', 'pro6', 'pro12'],
                 potentialAnswers: shuffle(PRO_TYPES),
             },
             {
                 type: 'con',
-                correctAnswers: ['con4', 'con5', 'con6'],
+                correctAnswers: ['con4', 'con5', 'con6', 'con5'],
                 potentialAnswers: shuffle(CON_TYPES),
             },
             {
@@ -215,7 +215,7 @@ export const phases = {
             },
             {
                 type: 'con',
-                correctAnswers: ['con1', 'con2', 'con3'],
+                correctAnswers: ['con1', 'con2', 'con3', 'con12'],
                 potentialAnswers: shuffle(CON_TYPES),
             },
             {
@@ -225,31 +225,6 @@ export const phases = {
             }
         ],
         title: 'Bahnhof Wien -> Geschäft',
-    },
-    6: {
-        elements: [
-            {
-                type: 'transport',
-                correctAnswers: ['truck'],
-                potentialAnswers: TRANSPORT_TYPES,
-            },
-            {
-                type: 'pro',
-                correctAnswers: ['pro1', 'pro2', 'pro3'],
-                potentialAnswers: shuffle(PRO_TYPES),
-            },
-            {
-                type: 'con',
-                correctAnswers: ['con1', 'con2', 'con3'],
-                potentialAnswers: shuffle(CON_TYPES),
-            },
-            {
-                type: 'comptype',
-                correctAnswers: ['comp1'],
-                potentialAnswers: shuffle(COMP_TYPES),
-            }
-        ],
-        title: 'Geschäft -> Zuhause',
     },
 }
 
@@ -276,9 +251,9 @@ export function allCorrect(state) {
 export function isTypeAllFound(state, type) {
     switch (type) {
         case 'pro':
-            return state.foundPro.length === state.proNeeded.length;
+            return state.foundPro.length >= 3;
         case 'con':
-            return state.foundCon.length === state.conNeeded.length;
+            return state.foundCon.length >= 3;
         case 'comptype':
             return state.foundComp.length === state.compNeeded.length;
         case 'transport':

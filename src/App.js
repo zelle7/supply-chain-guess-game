@@ -126,15 +126,15 @@ function App() {
                 label = 'Transportmittel';
                 break;
             case 'pro':
-                label = '3 Vorteile';
+                label = 'Vorteile';
                 map = PRO_TYPES_MAP;
                 break;
             case 'con':
-                label = '3 Nachteile';
+                label = 'Nachteile';
                 map = CON_TYPES_MAP
                 break;
             case 'comptype':
-                label = 'Unternehmen';
+                label = 'Reales Unternehmen';
                 map = COMP_TYPES_MAP
                 break;
             default:
@@ -214,7 +214,8 @@ function App() {
 
                     <div className="columns">
                         <div className="column">
-                            <h1 className="title"><strong>Phase</strong> {currentPhaseData.title}</h1>
+                            <h2>Mit welchem Transportmittel werden die Wraen von .. zum .. lt. Grafik transportiert?</h2>
+                            <h2 className="subtitle"><strong>Phase</strong> {currentPhaseData.title}</h2>
                             <DndContext onDragEnd={handleDragEnd} sensors={sensors}>
                                 <div className="fixed-grid has-2-cols">
                                     <div className="grid">
@@ -268,14 +269,6 @@ function App() {
                                     </StageCell>
                                     <EmptyCell times={1}/>
 
-                                    <EmptyCell times={2}/>
-                                    <VerticalStreet/>
-                                    <EmptyCell times={2}/>
-
-                                    <EmptyCell times={3}/>
-                                    <StageCell activeStage={currentPhase} stageNr={6} label="Zuhause">
-                                        <img src={home}/>
-                                    </StageCell>
                                 </div>
                             </div>
                         </div>
